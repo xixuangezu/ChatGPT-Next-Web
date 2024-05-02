@@ -9,7 +9,7 @@ import {
 } from "./store";
 import { showToast } from "./components/ui-lib";
 
-const TIME_OUT_MS = 60000;
+const TIME_OUT_MS = 1200000;
 
 const makeRequestParam = (
   messages: Message[],
