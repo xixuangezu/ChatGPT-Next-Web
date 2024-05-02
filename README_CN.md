@@ -136,7 +136,7 @@ anthropic claude Api Url.
 
 ### `ENABLE_BALANCE_QUERY` （可选）
 
-如果你想启用余额查询功能，将此环境变量设置为 1 即可。
+如果你不想启用余额查询功能，将此环境变量设置为 空字符串 即可。
 
 ### `DISABLE_FAST_LINK` （可选）
 
