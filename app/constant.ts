@@ -146,6 +146,9 @@ const openaiModels = [
   "gpt-4-turbo-preview",
   "gpt-4-vision-preview",
   "gpt-4-turbo-2024-04-09",
+  "o3-mini",
+  "deepseek-r1",
+  "deepseek-v3",
 ];
 
 const googleModels = [
