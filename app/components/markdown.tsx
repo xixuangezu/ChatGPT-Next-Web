@@ -117,17 +117,31 @@ function escapeDollarNumber(text: string) {
 }
 
 function escapeBrackets(text: string) {
+  // // ci
+  // const pattern =
+  //   /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\\]|\\\((.*?)\\\)/g;
+
   const pattern =
-    /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\\]|\\\((.*?)\\\)/g;
+    /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\\]|\\\((.*?)\\\)|<think>([\s\S]*?)<\/think>|<think>([\s\S]*)/g;
+
   return text.replace(
     pattern,
-    (match, codeBlock, squareBracket, roundBracket) => {
+    (match, codeBlock, squareBracket, roundBracket, tinkBlock, tinkBlockHalf) => {
       if (codeBlock) {
         return codeBlock;
       } else if (squareBracket) {
         return `$$${squareBracket}$$`;
       } else if (roundBracket) {
         return `$${roundBracket}$`;
+      } else if (tinkBlock) {
+        const isNull = /^\s*$/;
+        if(!isNull.test(tinkBlock)){
+          return "```\n" + tinkBlock + "\n```";
+        }else{
+          return ""
+        }
+      } else if (tinkBlockHalf) {
+        return "```\n" + tinkBlockHalf + "\n```";
       }
       return match;
     },
