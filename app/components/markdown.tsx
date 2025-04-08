@@ -121,6 +121,8 @@ function escapeBrackets(text: string) {
   // const pattern =
   //   /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\\]|\\\((.*?)\\\)/g;
 
+  text = escapeBrackets_o3_v2(text);
+
   const pattern =
     /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\\]|\\\((.*?)\\\)|<think>([\s\S]*?)<\/think>|<think>([\s\S]*)/g;
 
@@ -146,6 +148,45 @@ function escapeBrackets(text: string) {
       return match;
     },
   );
+}
+
+//ci
+function escapeBrackets_o3(text: string) {
+  const pattern = /[-─]{5,}/g;
+
+  var allMatches = text.match(pattern) || [];
+  var total = allMatches.length;
+
+  var counter = 0;
+  return text.replace(pattern, function(match) {
+    counter++;
+    if (counter === 1) {
+      return "\n```java";
+    } else if ( counter === total) {
+      return "\n```";
+    }
+    return match;
+  });
+}
+
+function escapeBrackets_o3_v2(text: string) {
+  // 将 text 按 "----" 拆分为若干段
+  const parts = text.split(/^\s*[-—─]{5,}\s*$/gm);
+
+  var counter = 0;
+  const transformed = parts.map((part, index) => {
+    counter++;
+    // 如果内容中没有 "────"，用 [] 括起来
+    const regex: RegExp = /^[─]{5,}$/;
+    const regex2: RegExp = /^\s*\d+\..*/;
+    if (counter != 1 && !(!text.endsWith('=') && counter == parts.length) && !regex.test(part) && !regex2.test(part)) {
+      return `\n\`\`\`java\n${part}\n\`\`\``;
+    } else {
+      return part;
+    }
+  }).join("");
+
+  return transformed;
 }
 
 function _MarkDownContent(props: { content: string }) {
