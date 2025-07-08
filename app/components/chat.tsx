@@ -850,14 +850,15 @@ function _Chat() {
     }
   };
   const onRightClick = (e: any, message: ChatMessage) => {
-    // copy to clipboard
-    if (selectOrCopy(e.currentTarget, getMessageTextContent(message))) {
-      if (userInput.length === 0) {
-        setUserInput(getMessageTextContent(message));
-      }
+    // // ci
+    // // copy to clipboard
+    // if (selectOrCopy(e.currentTarget, getMessageTextContent(message))) {
+    //   if (userInput.length === 0) {
+    //     setUserInput(getMessageTextContent(message));
+    //   }
 
-      e.preventDefault();
-    }
+    //   e.preventDefault();
+    // }
   };
 
   const deleteMessage = (msgId?: string) => {
@@ -1508,8 +1509,9 @@ function _Chat() {
             onInput={(e) => onInput(e.currentTarget.value)}
             value={userInput}
             onKeyDown={onInputKeyDown}
-            onFocus={scrollToBottom}
-            onClick={scrollToBottom}
+            // //ci
+            // onFocus={scrollToBottom}
+            // onClick={scrollToBottom}
             onPaste={handlePaste}
             rows={inputRows}
             autoFocus={autoFocus}
