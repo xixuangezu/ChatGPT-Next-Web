@@ -150,7 +150,7 @@ function escapeBrackets(text: string) {
   );
 }
 
-//ci
+// ci
 function escapeBrackets_o3(text: string) {
   const pattern = /[-─]{5,}/g;
 

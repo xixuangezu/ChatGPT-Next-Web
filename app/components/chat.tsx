@@ -674,7 +674,21 @@ function _Chat() {
   const [showExport, setShowExport] = useState(false);
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const [userInput, setUserInput] = useState("");
+  
+  // ci
+  const strConcise = "请简洁的回答，直接说重点\n";
+  const setUserInputConcise = () => {
+    setUserInput(strConcise);
+  }
+  useEffect(() => {
+    if (inputRef.current) {
+      const len = userInput.length;
+      inputRef.current.setSelectionRange(len, len);
+    }
+  }, []);
+  const [userInput, setUserInput] = useState(strConcise);
+  // const [userInput, setUserInput] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const { submitKey, shouldSubmit } = useSubmitHandler();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -764,7 +778,9 @@ function _Chat() {
     if (userInput.trim() === "") return;
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
-      setUserInput("");
+      // ci
+      setUserInputConcise();
+      // setUserInput("");
       setPromptHints([]);
       matchCommand.invoke();
       return;
@@ -775,7 +791,9 @@ function _Chat() {
       .then(() => setIsLoading(false));
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
-    setUserInput("");
+    // ci
+    setUserInputConcise();
+    // setUserInput("");
     setPromptHints([]);
     if (!isMobileScreen) inputRef.current?.focus();
     setAutoScroll(true);
@@ -1509,7 +1527,7 @@ function _Chat() {
             onInput={(e) => onInput(e.currentTarget.value)}
             value={userInput}
             onKeyDown={onInputKeyDown}
-            // //ci
+            // // ci
             // onFocus={scrollToBottom}
             // onClick={scrollToBottom}
             onPaste={handlePaste}
